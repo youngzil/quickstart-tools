@@ -25,14 +25,14 @@
 	</dependencies>
 
 	<modules>
-		<module>quickstart-tools-checkstyle</module>
-		<module>quickstart-tools-findbugs</module>
-		<module>quickstart-tools-jenkins</module>
-		<module>quickstart-tools-maven</module>
-		<module>quickstart-tools-nexus</module>
-		<module>quickstart-tools-pmd</module>
-		<module>quickstart-tools-sonar</module>
-		<module>quickstart-tools-gradle</module>
+		<module>quickstart-checkstyle</module>
+		<module>quickstart-findbugs</module>
+		<module>quickstart-jenkins</module>
+		<module>quickstart-maven</module>
+		<module>quickstart-nexus</module>
+		<module>quickstart-pmd</module>
+		<module>quickstart-sonar</module>
+		<module>quickstart-gradle</module>
 	</modules>
 
 </project>

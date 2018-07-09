@@ -6,20 +6,35 @@
 		<groupId>org.quickstart</groupId>
 		<artifactId>quickstart-tools</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>..</relativePath> <!-- lookup parent from repository -->
 	</parent>
 
 	<modelVersion>4.0.0</modelVersion>
-	<artifactId>quickstart-tools-gradle</artifactId>
+	<artifactId>quickstart-jenkins</artifactId>
 	<packaging>jar</packaging>
 	<name>${project.artifactId}-${project.version}</name>
 	<url>http://maven.apache.org</url>
 	<description>Demo project for XXX</description>
 
+	<!-- quickstart-nexus中上传的jar -->
+	<repositories>
+		<repository>
+			<id>test-public-repository</id>
+			<url>http://10.11.20.102:8081/repository/maven-public/</url>
+		</repository>
+	</repositories>
+
 	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
 	<dependencies>
+
+		<dependency>
+			<groupId>org.quickstart</groupId>
+			<artifactId>quickstart-nexus</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
 	</dependencies>
-	
+
 </project>

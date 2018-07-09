@@ -9,7 +9,7 @@
 	</parent>
 
 	<modelVersion>4.0.0</modelVersion>
-	<artifactId>quickstart-tools-sonar</artifactId>
+	<artifactId>quickstart-gradle</artifactId>
 	<packaging>jar</packaging>
 	<name>${project.artifactId}-${project.version}</name>
 	<url>http://maven.apache.org</url>
@@ -21,5 +21,5 @@
 
 	<dependencies>
 	</dependencies>
-
+	
 </project>
