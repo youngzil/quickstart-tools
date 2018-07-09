@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<parent>
+		<groupId>org.quickstart</groupId>
+		<artifactId>quickstart-all</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+
+	<!-- 坐标、版本以及打包方式 -->
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>quickstart-maven</artifactId>
+	<packaging>jar</packaging>
+	<name>${project.artifactId}-${project.version}</name>
+	<url>http://maven.apache.org</url>
+	<description>Demo project for XXX</description>
+
+	<!-- maven属性的使用 -->
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.jar.plugin>3.1.0</maven.jar.plugin>
+		<maven.dependency.plugin>3.1.0</maven.dependency.plugin>
+		<maven.assembly.plugin>3.1.0</maven.assembly.plugin>
+		<maven.shade.plugin>3.1.1</maven.shade.plugin>
+
+
+		<plugin.version>2.5</plugin.version>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-dependencies</artifactId>
+				<version>1.5.13.RELEASE</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<!-- 依赖配置的使用 -->
+	<dependencies>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<!-- 测试范围有效，在编译和打包时都不会使用这个依赖 -->
+			<scope>test</scope>
+			<!-- 在编译和测试的过程有效，最后生成war包时不会加入 -->
+			<!-- <scope>provided</scope> -->
+		</dependency>
+
+	</dependencies>
+
+	<!-- 注意体会插件配置的顺序，这正体现了一个maven的运行流程 -->
+	<build>
+		<plugins>
+
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<mainClass>org.quickstart.maven.App</mainClass>
+					<addResources>false</addResources>
+					<executable>true</executable>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+						<id>1</id>
+					</execution>
+				</executions>
+			</plugin>
+
+		</plugins>
+	</build>
+
+</project>

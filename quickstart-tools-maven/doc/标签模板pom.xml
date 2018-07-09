@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<!-- 父节点 -->
+	<parent>
+		<groupId>org.apache</groupId>
+		<artifactId>apache</artifactId>
+		<version>18</version>
+	</parent>
+	<!-- 坐标、版本以及打包方式 -->
+	<modelVersion>4.0.0</modelVersion>
+	<inceptionYear>2012</inceptionYear>
+	<groupId>org.apache.rocketmq</groupId>
+	<artifactId>rocketmq-all</artifactId>
+	<version>4.2.0</version>
+	<packaging>pom</packaging>
+	<name>Apache RocketMQ ${project.version}</name>
+	<url>http://rocketmq.apache.org/</url>
+
+	<!--描述了这个项目构建环境中的前提条件。 -->
+	<prerequisites>
+		<!--构建该项目或使用该插件所需要的Maven的最低版本 -->
+		<maven>3.2.5</maven>
+	</prerequisites>
+
+	<!-- Maven中为我们集成了软件配置管理的（SCM：Software Configuration Management）功能，他可以支持我们常用SVN、CVS等 -->
+	<scm>
+		<url>git@github.com:apache/rocketmq.git</url>
+		<connection>scm:git:git@github.com:apache/rocketmq.git</connection>
+		<developerConnection>scm:git:git@github.com:apache/rocketmq.git</developerConnection>
+		<tag>rocketmq-all-4.2.0</tag>
+	</scm>
+
+	<mailingLists>
+		<mailingList>
+			<name>Development List</name>
+			<subscribe>dev-subscribe@rocketmq.apache.org</subscribe>
+			<unsubscribe>dev-unsubscribe@rocketmq.apache.org</unsubscribe>
+			<post>dev@rocketmq.apache.org</post>
+		</mailingList>
+	</mailingLists>
+
+	<developers>
+		<developer>
+			<id>Apache RocketMQ</id>
+			<name>Apache RocketMQ of ASF</name>
+			<url>https://rocketmq.apache.org/</url>
+		</developer>
+	</developers>
+
+	<licenses>
+		<license>
+			<name>Apache License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<organization>
+		<name>Apache Software Foundation</name>
+		<url>http://www.apache.org</url>
+	</organization>
+
+	<issueManagement>
+		<system>jira</system>
+		<url>https://issues.apache.org/jira/browse/RocketMQ</url>
+	</issueManagement>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+		<!-- Maven properties -->
+		<maven.test.skip>false</maven.test.skip>
+		<maven.javadoc.skip>true</maven.javadoc.skip>
+		<!-- Compiler settings properties -->
+		<maven.compiler.source>1.7</maven.compiler.source>
+		<maven.compiler.target>1.7</maven.compiler.target>
+		<sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
+		<!-- Exclude all generated code -->
+		<sonar.jacoco.itReportPath>${project.basedir}/../test/target/jacoco-it.exec</sonar.jacoco.itReportPath>
+		<sonar.exclusions>file:**/generated-sources/**,**/test/**</sonar.exclusions>
+		<!-- URL of the ASF SonarQube server -->
+		<sonar.host.url>https://builds.apache.org/analysis</sonar.host.url>
+
+	</properties>
+
+	<modules>
+		<module>client</module>
+	</modules>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>versions-maven-plugin</artifactId>
+				<version>2.2</version>
+			</plugin>
+		</plugins>
+
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<artifactId>maven-assembly-plugin</artifactId>
+					<version>3.0.0</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+
+	<profiles>
+		<profile>
+			<id>jdk8</id>
+			<activation>
+				<jdk>[1.8,)</jdk>
+			</activation>
+			<!-- Disable doclint under JDK 8 -->
+			<reporting>
+				<plugins>
+					<plugin>
+						<artifactId>maven-javadoc-plugin</artifactId>
+						<version>2.10.4</version>
+						<configuration>
+							<additionalparam>-Xdoclint:none</additionalparam>
+						</configuration>
+					</plugin>
+				</plugins>
+			</reporting>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-javadoc-plugin</artifactId>
+						<version>2.10.4</version>
+						<configuration>
+							<additionalparam>-Xdoclint:none</additionalparam>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.assertj</groupId>
+			<artifactId>assertj-core</artifactId>
+			<version>2.6.0</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<version>2.6.3</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>rocketmq-client</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.openmessaging</groupId>
+				<artifactId>openmessaging-api</artifactId>
+				<version>0.1.0-alpha</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+</project>

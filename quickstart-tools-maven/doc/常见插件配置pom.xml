@@ -1,0 +1,509 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<parent>
+		<groupId>org.quickstart</groupId>
+		<artifactId>quickstart-all</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+
+	<!-- 坐标、版本以及打包方式 -->
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>quickstart-maven</artifactId>
+	<packaging>jar</packaging>
+	<name>${project.artifactId}-${project.version}</name>
+	<url>http://maven.apache.org</url>
+	<description>Demo project for XXX</description>
+
+	<!-- maven属性的使用 -->
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.jar.plugin>3.1.0</maven.jar.plugin>
+		<maven.dependency.plugin>3.1.0</maven.dependency.plugin>
+		<maven.assembly.plugin>3.1.0</maven.assembly.plugin>
+		<maven.shade.plugin>3.1.1</maven.shade.plugin>
+
+
+		<plugin.version>2.5</plugin.version>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-dependencies</artifactId>
+				<version>1.5.13.RELEASE</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<!-- 依赖配置的使用 -->
+	<dependencies>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<!-- 测试范围有效，在编译和打包时都不会使用这个依赖 -->
+			<scope>test</scope>
+			<!-- 在编译和测试的过程有效，最后生成war包时不会加入 -->
+			<!-- <scope>provided</scope> -->
+		</dependency>
+
+	</dependencies>
+
+	<!-- 注意体会插件配置的顺序，这正体现了一个maven的运行流程 -->
+	<build>
+		<plugins>
+
+			<plugin>
+				<artifactId>maven-help-plugin</artifactId>
+				<version>2.2</version>
+				<executions>
+					<execution>
+						<id>generate-effective-dependencies-pom</id>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>effective-pom</goal>
+						</goals>
+						<configuration>
+							<output>${project.build.directory}/effective-pom/effective-dependencies.xml</output>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+				<version>2.17</version>
+				<configuration>
+					<configLocation>google_checks.xml</configLocation>
+					<encoding>UTF-8</encoding>
+					<failOnViolation>true</failOnViolation>
+					<linkXRef>false</linkXRef>
+					<includeTestSourceDirectory>true</includeTestSourceDirectory>
+					<maxAllowedViolations>0</maxAllowedViolations>
+					<violationSeverity>warning</violationSeverity>
+				</configuration>
+				<executions>
+					<execution>
+						<id>checkstyle</id>
+						<phase>validate</phase>
+						<!-- <phase>verify</phase> -->
+						<goals>
+							<goal>check</goal>
+						</goals>
+						<configuration>
+							<configLocation>style/rmq_checkstyle.xml</configLocation>
+							<encoding>UTF-8</encoding>
+							<consoleOutput>true</consoleOutput>
+							<failsOnError>true</failsOnError>
+							<includeTestSourceDirectory>false</includeTestSourceDirectory>
+						</configuration>
+					</execution>
+				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>com.puppycrawl.tools</groupId>
+						<artifactId>checkstyle</artifactId>
+						<version>6.19</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+
+
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>3.0.2</version>
+				<configuration>
+					<!-- We are not suppose to setup the customer resources here -->
+					<encoding>${project.build.sourceEncoding}</encoding>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>findbugs-maven-plugin</artifactId>
+				<version>3.0.4</version>
+			</plugin>
+			<plugin>
+				<groupId>org.sonarsource.scanner.maven</groupId>
+				<artifactId>sonar-maven-plugin</artifactId>
+				<version>3.0.2</version>
+			</plugin>
+
+
+			<!-- 这个插件的主要作用就是清理构建目录下得全部内容,构建目录默认是target,但是有时候我们会配置project.build.directory, 
+				project.build.outputDirectory, project.build.testOutputDirectory, project.reporting.outputDirectory这四个目录,调用这个插件时同时也会清理这几个目录下得文件. -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-clean-plugin</artifactId>
+				<version>3.0.0</version>
+				<configuration>
+					<!-- 跳过clean，跟没有配置这个插件一样，不执行这个插件 -->
+					<!--<skip>true</skip> -->
+					<!-- 如果clean执行失败,会导致整个构建停止.为了让clean执行出错后还能继续执行其他命令,就需要配置让忽略错误 -->
+					<!--<failOnError>false</failOnError> -->
+					<!--当配置true时,只清理filesets里的文件,构建目录中得文件不被清理.默认是flase. -->
+					<excludeDefaultDirectories>false</excludeDefaultDirectories>
+					<filesets>
+						<fileset>
+							<!--要清理的目录位置 -->
+							<directory>${basedir}/logs</directory>
+							<!--是否跟随符号链接 (symbolic links) -->
+							<followSymlinks>false</followSymlinks>
+							<!--默认有些文件是不会被清理的,比如.svn文件,如果设置成false,则全部按照自定义的来处理 -->
+							<useDefaultExcludes>true</useDefaultExcludes>
+							<!--对这些文件进行清理 -->
+							<includes>
+								<include>**/*</include>
+							</includes>
+							<!--对这些文件不清理 -->
+							<excludes>
+								<exclude>nc*</exclude>
+							</excludes>
+						</fileset>
+					</filesets>
+				</configuration>
+				<executions>
+					<!-- 我们可以把清理命令绑定到打包的什么周期里,然后执行所有命令都会先进行清理,那样我们的mvn package和mvn clean 
+						package就是等价的 -->
+					<execution>
+						<id>auto-clean</id>
+						<phase>initialize</phase>
+						<goals>
+							<goal>clean</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<!--用于声明编译的相关配置，若不声明，则maven采用默认的相关配置 本来处理，可能会出现问题 -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<!--声明源代码的jdk版本 -->
+					<source>1.8</source>
+					<!--声明生成目标的jdk版本 -->
+					<target>1.8</target>
+					<!--声明编译文件的编码 -->
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+
+			<!-- maven-surefire-plugin插件，maven3.0.4默认使用2.10版本的surefire插件 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.21.0</version>
+				<configuration>
+					<!-- 改变测试报告生成目录 ，默认为target/surefire-reports -->
+					<!-- project.build.directory表示maven的属性，这里指的是构建的目录下面test-reports，project.build.directory就是pom标签的值 -->
+					<reportsDirectory>${project.build.directory}/test-reports</reportsDirectory>
+				</configuration>
+			</plugin>
+
+
+			<!--配置生成Javadoc包 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.10.4</version>
+				<configuration>
+					<encoding>UTF-8</encoding>
+					<aggregate>true</aggregate>
+					<charset>UTF-8</charset>
+					<docencoding>UTF-8</docencoding>
+				</configuration>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<phase>package</phase>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+						<configuration>
+							<additionalparam>-Xdoclint:none</additionalparam>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!--配置生成源码包 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>3.0.1</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.6</version>
+				<configuration>
+					<archive>
+						<manifest>
+							<!--不声明主类会无法运行 -->
+							<mainClass>com.xxx.Main</mainClass>
+							<!--添加依赖classpath配置到MANIFEST文件 -->
+							<addClasspath>true</addClasspath>
+						</manifest>
+						<!--可以添加key/value到生成的manifest -->
+						<manifestEntries>
+							<!--Class-Path是classpath关键字，这跟运行环境的依赖路径有关 -->
+							<key1>value1</key1>
+						</manifestEntries>
+					</archive>
+					<!--这些不打进包 -->
+					<excludes>
+						<exclude>applicationContext.xml</exclude>
+						<exclude>properties/**</exclude>
+						<exclude>log4j.properties</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<configuration>
+					<warName>demo-Rest</warName>
+					<webResources>
+						<resource>
+							<directory>src/main/webapp/WEB-INF</directory>
+							<filtering>true</filtering>
+							<targetPath>WEB-INF</targetPath>
+							<includes>
+								<include>web.xml</include>
+							</includes>
+						</resource>
+					</webResources>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-shade-plugin</artifactId>
+				<version>3.0.0</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+						<configuration>
+							<finalName>batch</finalName>
+							<shadedArtifactAttached>true</shadedArtifactAttached>
+							<shadedClassifierName>jar-with-dependencies</shadedClassifierName>
+							<transformers>
+								<transformer
+									implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+									<mainClass>com.fastjrun.demospring4.BatchInit</mainClass>
+								</transformer>
+								<transformer
+									implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+									<resource>META-INF/spring.handlers</resource>
+								</transformer>
+								<transformer
+									implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+									<resource>META-INF/spring.schemas</resource>
+								</transformer>
+								<transformer
+									implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+									<resource>META-INF/spring.tooling</resource>
+								</transformer>
+							</transformers>
+							<filters>
+								<filter>
+									<artifact>*:*</artifact>
+									<excludes>
+										<exclude>META-INF/*.SF</exclude>
+										<exclude>META-INF/*.DSA</exclude>
+										<exclude>META-INF/*.RSA</exclude>
+									</excludes>
+								</filter>
+							</filters>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<!--可以不声明groupId 因为groupId是默认的 -->
+				<!-- <groupId>org.apache.maven.plugins</groupId> -->
+				<artifactId>maven-assembly-plugin</artifactId>
+
+				<!-- configuration可以在这里配置，也可以在execution中配置，这里应该是全局的，所以execution -->
+				<configuration>
+					<appendAssemblyId>false</appendAssemblyId>
+					<descriptors>
+						<descriptor>target/classes/package.xml</descriptor>
+					</descriptors>
+				</configuration>
+				<executions>
+					<execution>
+						<!-- 官方说法 this is used for inheritance merges 感觉没什么用... -->
+						<id>make-assembly</id>
+						<!-- 绑定到maven的package操作 生命周期阶段上，也可以用绑定到install操作 -->
+						<phase>package</phase>
+						<goals>
+							<!-- 和phase的package组合使用 -->
+							<goal>single</goal>
+						</goals>
+						<configuration>
+							<!--不在生成的压缩包名称中添加assemblyId（在描述文件定义的id） -->
+							<appendAssemblyId>false</appendAssemblyId>
+							<descriptors>
+								<!--自定义描述文件路径 -->
+								<descriptor>src/main/assembly/assembly.xml</descriptor>
+							</descriptors>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-install-plugin</artifactId>
+				<version>2.4</version>
+				<inherited>false</inherited>
+
+				<!-- 单个文件的install，也可以配置在外面 -->
+				<!-- <configuration> -->
+				<!-- <groupId>org.oracle</groupId> -->
+				<!-- <artifactId>oraclejdbc</artifactId> -->
+				<!-- <version>14</version> -->
+				<!-- <packaging>jar</packaging> -->
+				<!-- <file>${basedir}/libs/ojdbc14.jar</file> -->
+				<!-- </configuration> -->
+
+				<executions>
+					<execution>
+						<id>install-artifacts.1</id>
+						<goals>
+							<goal>install-file</goal>
+						</goals>
+						<phase>validate</phase>
+						<configuration>
+							<groupId>org.oracle</groupId>
+							<artifactId>oraclejdbc</artifactId>
+							<version>14</version>
+							<packaging>jar</packaging>
+							<file>${basedir}/libs/ojdbc14.jar</file>
+						</configuration>
+					</execution>
+					<execution>
+						<id>install-artifacts.2</id>
+						<goals>
+							<goal>install-file</goal>
+						</goals>
+						<phase>validate</phase>
+						<configuration>
+							<groupId>org.bg</groupId>
+							<artifactId>foundation</artifactId>
+							<version>1.0</version>
+							<packaging>jar</packaging>
+							<file>${basedir}/libs/foundation-1.0.jar</file>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- 部署插件的使用，maven3.0.4会默认使用2.7版本的deploy插件 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-deploy-plugin</artifactId>
+				<version>2.8.2</version>
+				<configuration>
+					<!-- 更新元数据 -->
+					<updateReleaseInfo>true</updateReleaseInfo>
+				</configuration>
+			</plugin>
+		</plugins>
+		
+		<!-- maven构建时配置文件设置 -->
+			<resources>
+				<!-- 包括这些文件 -->
+				<resource>
+					<directory>src/main/resources</directory>
+					<filtering>true</filtering><!--开启true，使用maven的复制功能，当文件中有二进制的内容，会改变原文件内容，导致不可解码，文件内容不可识别 -->
+					<includes>
+						<include>jdbc.properties</include>
+						<!-- <include>mail.properties</include> -->
+					</includes>
+				</resource>
+				<!-- 排除的文件Include other files as resources files. -->
+				<resource>
+					<directory>src/main/resources</directory>
+					<filtering>false</filtering>
+					<excludes>
+						<exclude>jdbc.properties</exclude>
+						<exclude>mail.properties</exclude>
+					</excludes>
+				</resource>
+			</resources>
+			
+	</build>
+
+	<!-- 通过-P切换环境 -->
+	<profiles>
+		<profile>
+			<id>dev</id>
+			<properties>
+				<profileActive>dev</profileActive>
+			</properties>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+		</profile>
+		<profile>
+			<id>test</id>
+			<properties>
+				<profileActive>test</profileActive>
+			</properties>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+		</profile>
+	</profiles>
+
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+				<version>2.17</version>
+				<reportSets>
+					<reportSet>
+						<reports>
+							<report>checkstyle</report>
+						</reports>
+					</reportSet>
+				</reportSets>
+			</plugin>
+		</plugins>
+	</reporting>
+
+</project>
+
+

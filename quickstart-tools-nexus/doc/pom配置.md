@@ -1,0 +1,77 @@
+修改本地的maven配置文件
+　　6.1）进入目录并打开文件：maven\conf\setting.xml（进入eclipse->windows->Perference->maven->installations中查看您用的是哪个maven）
+　　6.2）修改:<localRepository>F:\JavaMavenRepo</localRepository>
+　　6.3）配置仓库：
+<profiles>   
+    <profile>   
+      <id>companyRep</id>   
+      <repositories>   
+            <repository>   
+                <id>central</id>                                      
+                <url>http://localhost:8080/nexus/content/groups/public/</url>        
+                <releases>   
+                    <enabled>true</enabled>   
+                </releases>   
+                <snapshots>   
+                    <enabled>true</enabled>   
+                </snapshots>   
+            </repository>   
+        </repositories>      
+         <pluginRepositories>   
+            <pluginRepository>   
+              <id>central</id>   
+              <url>http://localhost:8080/nexus/content/groups/public/</url>
+              <releases>   
+                <enabled>true</enabled>   
+              </releases>   
+              <snapshots>   
+                <enabled>false</enabled>   
+              </snapshots>   
+            </pluginRepository>   
+        </pluginRepositories>   
+    </profile>   
+</profiles>
+6.4）激活profile
+<activeProfiles>   
+    <activeProfile>companyRep</activeProfile>   
+</activeProfiles> 
+6.5）配置镜像
+<mirrors>   
+    <mirror>      
+     <id>nexus</id>       
+     <url>http://localhost:8080/nexus/content/groups/public/</url>      
+     <mirrorOf>*</mirrorOf>      
+   </mirror>   
+ </mirrors>
+　　这里配置mirrorOf的值为*，代表maven的所有访问请求都会指向到Nexus仓库组。
+6.6）添加认证信息
+server中的id和distributionManagement中的id对应
+<servers>   
+     <server>   
+      <id>commanyRep-releases</id>   
+      <username>admin</username>   
+      <password>admin123</password>   
+    </server>   
+    <server>   
+      <id>commanyRep-snapshot</id>   
+      <username>admin</username>   
+      <password>admin123</password>   
+    </server>   
+</servers>
+7、自动部署构件到Nexus仓库
+　　7.1） 修改pom文件（自动部署）
+
+<distributionManagement>   
+       <repository>   
+           <id>commanyRep-releases</id>   
+            <name>Releases</name>
+           <url>http://localhost:8080/nexus/content/repositories/releases/</url>   
+       </repository>   
+       <snapshotRepository>   
+           <id>commanyRep-snapshot</id>   
+           <name>Snapshot</name>
+           <url>http://localhost:8080/nexus/content/repositories/snapshots/</url>   
+       </snapshotRepository>   
+  </distributionManagement>
+　　用户名密码可以改为具有部署构件权限的用户。
+　　7.2）执行命令：mvn clean deploy
