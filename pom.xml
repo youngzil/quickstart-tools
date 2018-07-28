@@ -31,6 +31,7 @@
 		<module>quickstart-pmd</module>
 		<module>quickstart-sonar</module>
 		<module>quickstart-gradle</module>
+		<module>quickstart-gradle4</module>
     <module>quickstart-ant</module>
     <module>quickstart-ivy</module>
   </modules>
