@@ -1,9 +1,6 @@
-https://gradle.org
-
+https://gradle.org/
 https://gradle.org/docs/
-
 https://gradle.org/install/
-
 https://github.com/gradle/gradle
 
 
