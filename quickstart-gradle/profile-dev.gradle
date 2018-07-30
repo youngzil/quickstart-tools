@@ -1,7 +1,3 @@
-def env = System.getProperty("env") ?: "dev"
-apply from: "profile-${env}.gradle"
-//apply from: "build-msp.gradle"
-
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'maven'
@@ -20,8 +16,7 @@ repositories {
 dependencies {
    compile  'org.apache.commons:commons-lang3:3.0'
    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '1.5.14.RELEASE'
-   //testCompile 'junit:junit:4.12'
-   testCompile group: 'junit', name: 'junit', version: '4.+'
+   testCompile 'junit:junit:4.12'
    compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
    compile 'org.springframework:spring-context:3.2.6.RELEASE'
    compile fileTree(dir: 'libs', include: '*.jar')//也可以直接依赖本地的 jar 包
@@ -30,25 +25,12 @@ dependencies {
 //也可以通过 buildscript{} 中添加依赖的方式，将相关 jar 包加入到 classpath 中，如：
 buildscript {  
     repositories {  
-        mavenLocal()
-	    mavenCentral()
-	    maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
+        mavenCentral()  
     }  
-    
     dependencies {  
         classpath group: 'commons-codec', name: 'commons-codec', version: '1.2'  
     }  
-}  
-
-//通常，JAR 包需要被发布到某个地方。为了完成这个功能，你需要告诉 Gradle 把 JAR 包发布到哪里。在 Gradle 中，如 JAR 之类的压缩包都被发布到库中。在我们的样例中，我们将会发布到本地仓库。你也可以发布到一个或多个远端地址。
-//发布 jar 包添加如下配置：
-uploadArchives {
-    repositories {
-        flatDir {
-            dirs 'repo'
-        }
-    }
-}
+} 
 
 jar {
     baseName = 'quickstart-gradle'
@@ -62,4 +44,3 @@ war {
     archiveName 'quickstart-gradle.war'
     from 'SubprojectName/build/dist'
 }
-
