@@ -32,6 +32,11 @@ Gradle 期望在 src/main/java 路径下找到你项目的源代码，并且测�
 
 
 
+build.gradle中引用profile-dev.gradle文件apply from: "profile-dev.gradle"
+如果两个文件有一样的jar（group和name一样），会使用高版本的，不管高版本的配置在哪个文件中
+
+
+
 常用的依赖：
 （1）compile：编译生产代码的依赖环境，即src/main/下 
 （2）runtime：生产代码运行时的依赖（包含编译生产代码时的依赖） 

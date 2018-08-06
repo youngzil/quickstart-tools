@@ -8,6 +8,9 @@
 设置Deployment poicy为Allow redeploy
 
 
+注意：快照版本和Release版本是在两个仓库中
+
+
 设置maven的settings.xml
 <servers>
 <server>
