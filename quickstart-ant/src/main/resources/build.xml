@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="HelloWorld" default="test" basedir="">
+
+	<target name="test">
+		<echo message="test echo messsage, basedir=${basedir}" />
+	</target>
+
+	<!-- 执行ant test-property命令-->
+	<!--
+	<property>标签用于声明一个属性，其中name为属性名，value为属性值，访问属性值时使用${属性名}。
+	-->
+	<target name="test-property">
+		<property name="name" value="zhangsan" />
+		<property name="age" value="25" />
+		<echo message="this is target test2." />
+		<echo message="java version: ${ant.java.version}" />
+		<echo message="project name: ${ant.project.name}" />
+		<echo message="ant file: ${ant.file}" />
+		<echo message="name = ${name}, age = ${age}" />
+	</target>
+
+
+	<!-- ant test-copy-->
+	<target name="test-copy">
+		<copy file="test.txt" tofile="build/test.txt" />
+	</target>
+
+	<!--
+	<copy>标签表示文件或文件夹的拷贝，上面的配置中，file属性表示要拷贝的文件路径，tofile属性表示要拷贝的目的文件路径。
+	如果待拷贝的文件不存在，则命令执行会失败，如果目的文件路径不存在，则命令执行时会自动创建目录。
+	如果是要拷贝整个目录，需要下面的配置：
+	-->
+	<!--如果待拷贝的目录不存在，则命令执行会失败，如果目的路径不存在，则命令执行时会自动创建目录。-->
+	<target name="test-copy-dir">
+		<copy todir="build/dest_dir">
+			<fileset dir="origin_dir" />
+		</copy>
+	</target>
+
+	<!-- 删除单个文件 -->
+	<target name="test-del-file">
+		<delete file="test.txt" />
+	</target>
+
+	<!-- 删除整个目录 -->
+	<target name="test-del-dir">
+		<delete dir="origin_dir" />
+	</target>
+
+	<!--<mkdir>标签，用于目录的创建： -->
+	<target name="test-mkdir">
+		<mkdir dir="test" />
+	</target>
+
+	<!--
+	ant还可以编译java文件，用法如下：<javac>标签，用于将.java文件编译成.class文件：
+		srcdir指定了java源文件所在的路径，destdir指定的是编译后的class文件存放的路径，
+		第一次执行ant test-compile命令时，由于destdir目录不存在，所以编译不成功，
+		在创建了build/classes/目录后再次执行ant test-compile，命令执行成功，
+		并且在build/classes/目录下出现了Test.class文件。
+		 -->
+	<target name="test-compile">
+		<javac srcdir="src" destdir="build/classes/" />
+	</target>
+	<!--
+	ant能编译java文件，自然也能运行java程序，用法如下：<java>标签，用于执行.class文件：
+	<java>标签中的classname属性，指定了要执行的main class名，<classpath>标签中的<pathelement>标签，指定了class文件的路径。
+	 -->
+	<target name="test-run-java">
+		<java classname="App">
+			<classpath>
+				<pathelement path="build/classes" />
+			</classpath>
+		</java>
+	</target>
+	
+	<!--
+	<jar>标签，用于将java程序打包成jar文件：
+	<jar>标签中的destfile属性表示要生成的jar文件，basedir指定class文件的路径，
+	<manifest>标签指定了jar包中的MANIFEST.MF文件中的属性，里面配置Main-class，即主class名称为"Add"。
+		 -->
+	<target name="jar">
+	        <jar destfile="add.jar" basedir="build/classes/">
+	            <manifest>
+	                <attribute name="Main-class" value="Add" />
+	            </manifest>
+	        </jar>
+	    </target>
+
+
+
+</project>
+
+
+
+
+
+
+
+
+
+

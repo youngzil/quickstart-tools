@@ -14,6 +14,16 @@ Chocolatey是windows下的包管理器
 C:\> choco install gradle
 
 
+Mac配置
+#gradle:gradle -v
+#jar缓存路径：/Users/yangzl/gradleCache/caches/modules-2/files-2.1
+export GRADLE_HOME=/Users/yangzl/mysoft/gradle-3.5.1
+#export GRADLE_HOME=/Users/yangzl/mysoft/gradle-4.9
+#设置gradle缓存的路径
+export GRADLE_USER_HOME=/Users/yangzl/gradleCache
+export PATH=$GRADLE_HOME/bin:$PATH
+
+
 
 简单使用
 Gradle 使用 约定优于配置(Convention over Configuration)的理念。使用与maven兼容的目录结构布局。完全按照约定的目录结构来布置工程文件，会大大简化编译配置文件。

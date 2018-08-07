@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 
+depends，创建四个文件夹，然后删除四个文件夹
+可以在命令行显式的指定执行的任务
+ant -f Hello.xml init
+此时<project default="second">失效
+也可以同时指定多个任务，用空格隔开
+ant -f Hello.xml init second	
+ant构建文件的注释有两种方式 
+1.xml文件的注释方式
+2.description元素和description属性
+-->
+
+<project name="HelloWorld" default="delete-file" basedir="">
+
+	<!-- description元素 -->
+	<description>创建四个文件夹，然后删除四个文件夹</description>
+
+	<!-- description属性 -->
+	<target name="init" description="创建4个文件夹">
+		<mkdir dir="HelloWorld">
+		</mkdir>
+		<mkdir dir="HelloWorld2">
+		</mkdir>
+		<mkdir dir="HelloWorld3">
+		</mkdir>
+		<mkdir dir="HelloWorld4">
+		</mkdir>
+	</target>
+
+	<!--拷贝文件-->
+	<target name="copy-file" depends="init">
+		<copy file="test.txt" tofile="build/dest/test.txt" />
+	</target>
+
+	<!-- description属性 -->
+	<!--删除文件-->
+	<target name="delete-file" depends="copy-file" description="删除4个文件夹">
+		<delete file="test.txt" />
+		<delete dir="HelloWorld">
+		</delete>
+		<delete dir="HelloWorld2">
+		</delete>
+		<delete dir="HelloWorld3">
+		</delete>
+		<delete dir="HelloWorld4">
+		</delete>
+	</target>
+
+
+
+
+</project>
