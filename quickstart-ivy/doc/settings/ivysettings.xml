@@ -1,0 +1,17 @@
+<ivysettings>
+ 	<properties file="${ivy.settings.dir}/ivysettings-file.properties" /> 
+    <settings defaultResolver="Client"/>   
+    <caches
+        resolutionCacheDir="${basedir}/ivy-resolution"
+        repositoryCacheDir="${ivy.cache.dir}"
+        defaultCacheDir="${ivy.cache.dir}"
+        useOrigin="true"/>
+ 
+    <resolvers>
+        <chain name="Client">
+            <ibiblio name="nexus-aliyun" m2compatible="true"
+      		root="http://maven.aliyun.com/nexus/content/groups/public/"/>
+        </chain>           
+    </resolvers>
+    
+</ivysettings>
