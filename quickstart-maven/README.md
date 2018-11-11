@@ -12,9 +12,13 @@ maven项目原型maven-archetype
 https://github.com/apache/maven-archetype
 
 
+阿里云maven官方地址点这里：http://maven.aliyun.com。
+
+https://search.maven.org/
+https://github.com/sonatype-nexus-community/search-maven-org/
 
 
 https://github.com/trustin/os-maven-plugin
- Download os-maven-plugin-1.6.0.jar and put it into the <ECLIPSE_HOME>/plugins directory.
+Download os-maven-plugin-1.6.0.jar and put it into the <ECLIPSE_HOME>/plugins directory.
 
 

@@ -54,3 +54,23 @@ spring.profiles.active=@profileActive@
 3、通过mvn package -P dev进行打包就会只将开发环境的配置文件扔到对应的jar包或者war包中
 
 
+
+
+<resources>  
+            <resource>  
+                <directory>${project.basedir}/src/main/resources</directory>  
+                <filtering>true</filtering>  
+                <excludes>  
+                    <exclude>static/fonts/**</exclude>  
+                </excludes>  
+            </resource>  
+            <resource>  
+                <directory>${project.basedir}/src/main/resources</directory>  
+                <filtering>false</filtering>  
+                <includes>  
+                    <include>static/fonts/**</include>  
+                </includes>  
+            </resource>  
+        </resources>  
+
+
