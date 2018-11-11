@@ -11,7 +11,7 @@ package org.quickstart.gradle;
 /**
  * Greeter 
  *  
- * @author：yangzl@asiainfo.com
+ * @author：youngzil@163.com
  * @2018年7月28日 下午9:29:34 
  * @since 1.0
  */

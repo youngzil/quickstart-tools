@@ -11,7 +11,7 @@ package org.quickstart.gradle;
 /**
  * HelloWorld
  * 
- * @author：yangzl@asiainfo.com
+ * @author：youngzil@163.com
  * @2018年7月28日 下午9:28:45
  * @since 1.0
  */
