@@ -123,7 +123,7 @@ Nexus仓库
      <id>myProxy</id>    
      <active>true</active>    
      <protocol>http</protocol>    
-     <host>proxy.asiainfo.com</host>    
+     <host>proxy.yangzl.com</host>    
      <port>8080</port>    
      <username></username>    
      <password></password>    
