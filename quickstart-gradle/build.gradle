@@ -13,8 +13,11 @@ version = '0.0.1-SNAPSHOT'
 
 repositories {
     mavenLocal()
-    mavenCentral()
     maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
+    mavenCentral()
+    jcenter()
+    maven { url 'https://repo.spring.io/libs-milestone' }
+    maven { url "https://oss.sonatype.org/content/repositories/releases/" }
 }
 
 dependencies {
@@ -28,12 +31,16 @@ dependencies {
 }
 
 //也可以通过 buildscript{} 中添加依赖的方式，将相关 jar 包加入到 classpath 中，如：
-buildscript {  
-    repositories {  
+buildscript {
+
+    repositories {
         mavenLocal()
-	    mavenCentral()
-	    maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
-    }  
+        maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
+        mavenCentral()
+        jcenter()
+        maven { url 'https://repo.spring.io/libs-milestone' }
+        maven { url "https://oss.sonatype.org/content/repositories/releases/" }
+    }
     
     dependencies {  
         classpath group: 'commons-codec', name: 'commons-codec', version: '1.2'  
