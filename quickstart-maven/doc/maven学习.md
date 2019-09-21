@@ -4,7 +4,10 @@ Maven基本概念：仓库、jar
 Maven依赖管理和依赖冲突解决
 Maven生命周期
 关于scope依赖范围
-3、
+3、maven中引入测试类，但是打包会报错，最好测试独立，不依赖其他的模块测试类,这是maven的原则
+打包排除配置文件，使用maven-jar-plgin或者maven-war-piugin
+编译排除部分配置：使用maven-resources-plugin插件和resources配置：maven分环境编译和打包.md
+
 4、
 5、
 
@@ -35,6 +38,10 @@ jar的查找坐标：groupId、artifactId、version。
 查找：http://search.maven.org/、http://mvnrepository.com/上进行查找确定坐标。
 
 使用Snapshot版本，在开发过程中B发布的版本标志为Snapshot版本，A进行依赖的时候选择Snapshot版本，那么每次B发布的话，会在私服仓库中，形成带有时间戳的Snapshot版本，而A构建的时候会自动下载B最新时间戳的Snapshot版本！
+
+Maven是一个采用纯Java编写的开 源项目管理工具。Maven采用了一种被称之为project object model (POM)概念来管理项目，所有的项目配置信息都被定义在一个叫做POM.xml的文件中，通过该文件，Maven可以管理项目的整个声明周期，包括编 译，构建，测试，发布，报告等等。目前Apache下绝大多数项目都已经采用Maven进行管理。而Maven本身还支持多种插件，可以方便更灵活的控制 项目。
+
+
 
 
 Maven依赖管理和依赖冲突解决
@@ -127,9 +134,72 @@ mvn help:effective -pom //查看完整的pom信息
 
 
 
+mvn archetype：create 创建Maven项目
+mvn compile 编译源代码
+mvn deploy 发布项目
+mvn test-compile 编译测试源代码
+mvn test 运行应用程序中的单元测试
+mvn site 生成项目相关信息的网站
+mvn clean 清除项目目录中的生成结果
+mvn package 根据项目生成的jar
+mvn install 在本地Repository中安装jar
+mvn eclipse:eclipse 生成eclipse项目文件
+mvnjetty:run 启动jetty服务
+mvntomcat:run 启动tomcat服务
+mvn clean package -Dmaven.test.skip=true:清除以前的包后重新打包，跳过测试类
+
+
 
 ---------------------------------------------------------------------------------------------------------------------
 
+maven中引入测试类，但是打包会报错，最好测试独立，不依赖其他的模块测试类,这是maven的原则
+ <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>aifgw-backend-common</artifactId>
+      <version>${project.version}</version>
+      <classifier>tests</classifier>
+      <scope>test</scope>
+    </dependency>
 
 
+打包排除配置文件，使用maven-jar-plgin或者maven-war-piugin
 
+ <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>3.0.2</version>
+        <configuration>
+          <excludes>
+            <exclude>aifgw.yaml</exclude>
+            <exclude>log4j2.yaml</exclude>
+            <exclude>velocity.properties</exclude>
+          </excludes>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+  
+  <build>
+          <plugins>
+              <plugin>
+                  <groupId>org.apache.maven.plugins</groupId>
+                  <artifactId>maven-war-plugin</artifactId>
+                  <version>3.0.0</version>
+                  <configuration>
+                      <archive>
+                          <manifest>
+                              <addClasspath>true</addClasspath>
+                          </manifest>
+                      </archive>
+                      <webResources>
+                          <resource>
+                              <directory>src/main/front/build</directory>
+                          </resource>
+                      </webResources>
+                  </configuration>
+              </plugin>
+          </plugins>
+      </build>
+---------------------------------------------------------------------------------------------------------------------
