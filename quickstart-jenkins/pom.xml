@@ -1,40 +1,41 @@
 <?xml version="1.0"?>
 <project
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
-	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-	<parent>
-		<groupId>org.quickstart</groupId>
-		<artifactId>quickstart-tools</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
-		<relativePath>..</relativePath> <!-- lookup parent from repository -->
-	</parent>
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+  xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <parent>
+    <groupId>org.quickstart</groupId>
+    <artifactId>quickstart-tools</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <relativePath>..</relativePath> <!-- lookup parent from repository -->
+  </parent>
 
-	<modelVersion>4.0.0</modelVersion>
-	<artifactId>quickstart-jenkins</artifactId>
-	<packaging>jar</packaging>
-	<name>${project.artifactId}-${project.version}</name>
-	<url>http://maven.apache.org</url>
-	<description>Demo project for XXX</description>
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>quickstart-jenkins</artifactId>
+  <packaging>jar</packaging>
+  <name>${project.artifactId}-${project.version}</name>
+  <url>http://maven.apache.org</url>
+  <description>Demo project for XXX</description>
 
-	<!-- quickstart-nexus中上传的jar -->
-	<repositories>
-		<repository>
-			<id>test-public-repository</id>
-			<url>http://10.11.20.102:8081/repository/maven-public/</url>
-		</repository>
-	</repositories>
+  <!-- quickstart-nexus中上传的jar -->
+  <repositories>
+    <repository>
+      <id>test-public-repository</id>
+      <!--			<url>http://10.11.20.102:8081/repository/maven-public/</url>-->
+      <url>https://maven.aliyun.com/repository/central</url>
+    </repository>
+  </repositories>
 
-	<properties>
-	</properties>
+  <properties>
+  </properties>
 
-	<dependencies>
+  <dependencies>
 
-		<dependency>
-			<groupId>org.quickstart</groupId>
-			<artifactId>quickstart-nexus</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
+    <dependency>
+      <groupId>org.quickstart</groupId>
+      <artifactId>quickstart-nexus</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+    </dependency>
 
-	</dependencies>
+  </dependencies>
 
 </project>
