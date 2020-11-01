@@ -1,9 +1,8 @@
-1、使用Docker安装Sonarqube
-
+- [使用Docker安装Sonarqube](#使用Docker安装Sonarqube)
 
 ---------------------------------------------------------------------------------------------------------------------
 
-使用Docker安装Sonarqube
+## 使用Docker安装Sonarqube
 
 
 

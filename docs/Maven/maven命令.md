@@ -70,6 +70,10 @@ mvn clean package -Dmaven.test.skip=true:清除以前的包后重新打包，跳
 通过控制台查看：
 输入命令：mvn dependency:tree
 
+mvn dependency:tree > log.txt
+
+
+
 如果要输出到文件，找到pom文件的位置 进入命令行
 输入命令： mvn dependency:tree >d:/tree.txt
 
