@@ -10,12 +10,11 @@ https://lippiouyang.gitbooks.io/gradle-in-action-cn
 https://github.com/townsfolk/gradle-templates
 
 
-//新业务对接isee
 allprojects  {
   apply plugin: 'maven'
   apply plugin: 'java'
   repositories {
-    maven { url "http://nexus.zj.chinamobile.com:8081/nexus/content/groups/public/" }
+    maven { url "http://nexus.test.com:8080/nexus/content/groups/public/" }
   }
   tasks.withType(JavaCompile) {
                 options.encoding = "UTF-8"

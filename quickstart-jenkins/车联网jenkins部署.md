@@ -2,7 +2,7 @@
 
 
 
-亚信云部署：
+阿里云部署：
 构建后执行（清空本地临时文件夹，把代码复制到临时文件夹，把配置文件复制（替换）到临时文件夹，删除本地仓库jar（重新下载），执行maven打包）
 rm -rf /home/aitest/.jenkins/workspace/temp
 cp -r /home/aitest/.jenkins/workspace/ddmp-server/ /home/aitest/.jenkins/workspace/temp/

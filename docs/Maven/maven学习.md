@@ -13,6 +13,9 @@ Maven生命周期
 6、Maven依赖传递性optional = true 
 
 
+
+
+
 ---------------------------------------------------------------------------------------------------------------------
 Maven概念学习
 
@@ -221,7 +224,7 @@ mvncleanpackage-Dmaven.test.skip=true:清除以前的包后重新打包，跳过
 maven中引入测试类，但是打包会报错，最好测试独立，不依赖其他的模块测试类,这是maven的原则
 <dependency>
 <groupId>${project.groupId}</groupId>
-<artifactId>aifgw-backend-common</artifactId>
+<artifactId>test-backend-common</artifactId>
 <version>${project.version}</version>
 <classifier>tests</classifier>
 <scope>test</scope>
@@ -303,16 +306,29 @@ A->B, B->C(scope:provided), B的编译/测试classpath有C，A中的编译/运�
 
 
 ---------------------------------------------------------------------------------------------------------------------
+maven:linux shell获取项目版本号(project.version)的方法
 
 
 
+PROJECT_VERSION=$(mvn org.apache.maven.plugins:maven-help-plugin:3.2.0:evaluate -Dexpression=project.version -q -DforceStdout)
+echo $PROJECT_VERSION
+B="ERROR"
+if [[ $PROJECT_VERSION == *$B* ]]
+then
+    echo "包含$B"
+else
+    echo "不包含$B"
+fi
+
+
+最好不要使用简写，因为低版本不支持-q -DforceStdout，可能不会输出  
+PROJECT_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
 
 
 
-
-
-
-
+参考  
+[maven:linux shell获取项目版本号(project.version)的方法](https://cloud.tencent.com/developer/article/1476991)  
+[maven-help-plugin文档参考](http://maven.apache.org/plugins/maven-help-plugin/evaluate-mojo.html)  
 
 
 ---------------------------------------------------------------------------------------------------------------------

@@ -25,7 +25,7 @@ admin/admin123
 Nexus默认的端口是8081，可以在etc/nexus-default.properties配置中修改。
 修改配置
  vi etc/nexus-default.properties 
- nexus-work=/home/aifqa/msgframe/nexus-3.6.2-01/store
+ nexus-work=/home/test/nexus-3.6.2-01/store
   nexus-work好像没有生效，nexus的jar存放路径在哪里？？
  
 
