@@ -1,88 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<!--<parent>
-		<groupId>org.quickstart</groupId>
-		<artifactId>quickstart-all</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
-		<relativePath>..</relativePath> &lt;!&ndash; lookup parent from repository &ndash;&gt;
-	</parent>-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>org.quickstart</groupId>
+        <artifactId>quickstart-all</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+        <!--        <relativePath>..</relativePath> &lt;!&ndash; lookup parent from repository &ndash;&gt;-->
+    </parent>
 
-	<modelVersion>4.0.0</modelVersion>
-  <groupId>org.quickstart</groupId>
-	<artifactId>quickstart-tools</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-	<packaging>pom</packaging>
-	<name>${project.artifactId}-${project.version}</name>
-	<url>http://maven.apache.org</url>
-	<description>Demo project for XXX</description>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.quickstart</groupId>
+    <artifactId>quickstart-tools</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>${project.artifactId}-${project.version}</name>
+    <url>http://maven.apache.org</url>
+    <description>Demo project for XXX</description>
 
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	</properties>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
 
-  <dependencies>
+    <modules>
+        <module>quickstart-checkstyle</module>
+        <module>quickstart-findbugs</module>
+        <module>quickstart-jenkins</module>
+        <module>quickstart-maven</module>
+        <module>quickstart-nexus</module>
+        <module>quickstart-pmd</module>
+        <module>quickstart-sonar</module>
+        <module>quickstart-gradle</module>
+        <module>quickstart-gradle4</module>
+        <module>quickstart-ant</module>
+        <module>quickstart-ivy</module>
+        <module>quickstart-maven-plugin</module>
+    </modules>
 
-    <dependency>
-      <groupId>org.projectlombok</groupId>
-      <artifactId>lombok</artifactId>
-      <version>1.18.12</version>
-      <scope>provided</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.12</version>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
-
-	<modules>
-		<module>quickstart-checkstyle</module>
-		<module>quickstart-findbugs</module>
-		<module>quickstart-jenkins</module>
-		<module>quickstart-maven</module>
-		<module>quickstart-nexus</module>
-		<module>quickstart-pmd</module>
-		<module>quickstart-sonar</module>
-		<module>quickstart-gradle</module>
-		<module>quickstart-gradle4</module>
-    <module>quickstart-ant</module>
-    <module>quickstart-ivy</module>
-  </modules>
-
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.8.1</version>
-        <configuration>
-          <source>1.8</source>
-          <target>1.8</target>
-          <compilerArgument>-parameters</compilerArgument>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
-
-  <repositories>
-
-    <repository>
-      <id>alimaven-public</id>
-      <name>aliyun maven</name>
-      <url>https://maven.aliyun.com/repository/public</url>
-      <releases>
-        <enabled>true</enabled>
-        <updatePolicy>always</updatePolicy>
-      </releases>
-      <snapshots>
-        <enabled>true</enabled>
-        <updatePolicy>always</updatePolicy>
-        <checksumPolicy>fail</checksumPolicy>
-      </snapshots>
-    </repository>
-
-  </repositories>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <compilerArgument>-parameters</compilerArgument>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

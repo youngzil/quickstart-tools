@@ -22,3 +22,8 @@ https://github.com/trustin/os-maven-plugin
 Download os-maven-plugin-1.6.0.jar and put it into the <ECLIPSE_HOME>/plugins directory.
 
 
+
+GAV信息：坐标定位属性即：groupId、artifactId、version
+
+
+
