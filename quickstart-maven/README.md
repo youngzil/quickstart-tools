@@ -26,4 +26,6 @@ Download os-maven-plugin-1.6.0.jar and put it into the <ECLIPSE_HOME>/plugins di
 GAV信息：坐标定位属性即：groupId、artifactId、version
 
 
+[Maven - 打包可执行jar包](https://www.jianshu.com/p/0d85d0539b1a)
+
 

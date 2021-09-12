@@ -1,13 +1,7 @@
 [项目地址](https://github.com/youngzil/quickstart-tools)
 
 
-
-
-
-
-
-
-
+Maven, Gradle, sbt
 
 
 
@@ -15,5 +9,13 @@
 Confluence - 团队协作软件|
 jira 问题跟踪，项目管理
 sonar jenkins
+
+
+
+
+
+
+
+
 
 
