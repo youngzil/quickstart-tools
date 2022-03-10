@@ -20,7 +20,9 @@ mvn -version
 
 
 设置新版本号
-mvn versions:set -DnewVersion=3.0.3 
+mvn versions:set -DnewVersion=3.0.7
+
+mvn versions:set -DnewVersion=3.0.8-SNAPSHOT
 
 
 更新所有子 Module 的版本
